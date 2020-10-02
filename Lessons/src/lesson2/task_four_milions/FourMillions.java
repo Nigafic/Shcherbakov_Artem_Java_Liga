@@ -20,8 +20,9 @@ public class FourMillions {
 
     /**
      * Считаем +1
+     * синхронизируем потоки
      */
-    public void increment() {
+    public synchronized void increment() {
       count++;
     }
 
