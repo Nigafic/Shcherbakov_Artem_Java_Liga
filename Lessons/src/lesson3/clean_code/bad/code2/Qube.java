@@ -1,32 +1,35 @@
 package lesson3.clean_code.bad.code2;
 
+/**
+ * Объект Куб реализует интерфейс 3Д Фигуры
+ */
 public class Qube implements Shape3D {
-    private Double x;
-    private Double y;
-    private Double z;
+    private Double centerX;
+    private Double centerY;
+    private Double centerZ;
     private Double edgeSize;
 
     public Qube(Double centerX, Double centerY, Double centerZ, Double edgeSize) {
-        this.x = centerX;
-        this.y = centerY;
-        this.z = centerZ;
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.centerZ = centerZ;
         this.edgeSize = edgeSize;
     }
 
 
     @Override
     public Double getXSide() {
-        return x;
+        return centerX;
     }
 
     @Override
     public Double getYSide() {
-        return y;
+        return centerY;
     }
 
     @Override
     public Double getZSide() {
-        return z;
+        return centerZ;
     }
 
     /**
@@ -34,7 +37,12 @@ public class Qube implements Shape3D {
      */
     @Override
     public Double getSquare() {
-        return 6*edgeSize*edgeSize;
+        return 6 * edgeSize * edgeSize;
+    }
+
+    @Override
+    public Double getPerimeter() {
+        return 12 * edgeSize;
     }
 
     /**

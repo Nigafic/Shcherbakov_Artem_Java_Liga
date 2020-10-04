@@ -1,5 +1,8 @@
 package lesson3.clean_code.bad.code2;
 
+/**
+ * Объект Квадрат реализует интерфейс 2Д Фигуры
+ */
 public class Square implements Shape2D {
     private Double xSideOfSq;
     private Double ySideOfSq;
@@ -27,6 +30,14 @@ public class Square implements Shape2D {
     @Override
     public Double getSquare() {
         return edgeSize * edgeSize;
+    }
+
+    /**
+     * @return возвращает периметр квадрата
+     */
+    @Override
+    public Double getPerimeter() {
+        return 4 * edgeSize;
     }
 
 }
