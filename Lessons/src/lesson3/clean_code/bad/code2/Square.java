@@ -1,36 +1,32 @@
 package lesson3.clean_code.bad.code2;
 
-public class Square implements Shape3D {
-    private Double x;
-    private Double y;
+public class Square implements Shape2D {
+    private Double xSideOfSq;
+    private Double ySideOfSq;
     private Double edgeSize;
-    public Square(Double x, Double y, Double edgeSize) {
-        this.x = x;
-        this.y = y;
+
+    public Square(Double xSideOfSq, Double ySideOfSq, Double edgeSize) {
+        this.xSideOfSq = xSideOfSq;
+        this.ySideOfSq = ySideOfSq;
         this.edgeSize = edgeSize;
     }
 
     @Override
-    public Double getX() {
-        return x;
+    public Double getXSide() {
+        return xSideOfSq;
     }
 
     @Override
-    public Double getY() {
-        return y;
+    public Double getYSide() {
+        return ySideOfSq;
     }
 
+    /**
+     * @return возвращает площадь квадрата
+     */
     @Override
-    public Double getZ() {
-        return null;
-    }
-
-    @Override
-    public Double getVolume() {
-        return null;
-    }
-
-    public Double getPerimeter() {
+    public Double getSquare() {
         return edgeSize * edgeSize;
     }
+
 }
