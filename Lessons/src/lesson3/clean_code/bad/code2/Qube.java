@@ -5,21 +5,25 @@ package lesson3.clean_code.bad.code2;
  */
 public class Qube implements Shape3D {
     /**
-     * колличество сторон у куба
+     * колличество граней у куба
      */
     public static final int SIDES_OF_CUBE = 6;
 
     /**
-     * колличество ребер у куба
+     * значения x центра фигуры относительно начала коорлинат
      */
-    public static final int CUBE_EDGES = 12;
-
     private Double centerX;
+    /**
+     * значение y центра фигуры относительно начала коорлинат
+     */
     private Double centerY;
+    /**
+     * значение z центра фигуры относительно начала коорлинат
+     */
     private Double centerZ;
 
     /**
-     * величина ребра куба
+     * длинна ребра куба
      */
     private Double edgeSize;
 
@@ -31,27 +35,28 @@ public class Qube implements Shape3D {
     }
 
 
+    /**
+     * @return значение центра фигуры относительно начала координато по оси Х
+     */
     @Override
-    public Double getXSide() {
+    public Double getCenterX() {
         return centerX;
     }
 
+    /**
+     * @return значение центра фигуры относительно начала координато по оси Y
+     */
     @Override
-    public Double getYSide() {
+    public Double getCenterY() {
         return centerY;
     }
 
-    @Override
-    public Double getZSide() {
-        return centerZ;
-    }
-
     /**
-     * @return возвращает периметр куба
+     * @return значение центра фигуры относительно начала координато по оси Z
      */
     @Override
-    public Double getPerimeter() {
-        return CUBE_EDGES * edgeSize;
+    public Double getCenterZ() {
+        return centerZ;
     }
 
     /**
@@ -63,7 +68,7 @@ public class Qube implements Shape3D {
     }
 
     /**
-     * @return возвращает объем круга
+     * @return возвращает объем куба
      */
     @Override
     public Double getVolume() {

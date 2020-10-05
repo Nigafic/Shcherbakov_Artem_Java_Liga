@@ -1,11 +1,15 @@
 package lesson3.clean_code.bad.code2;
 
 /**
- * Интерфейс добавляет возможности для 3D Фигур
+ * Интерфейс для 3D Фигур
  */
-public interface Shape3D extends Shape2D{
+public interface Shape3D {
 
-    Double getZSide();
+    Double getCenterX();
+    Double getCenterY();
+    Double getCenterZ();
+
+    Double getSquare();
     Double getVolume();
 
 }

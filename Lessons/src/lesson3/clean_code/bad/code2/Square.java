@@ -5,26 +5,45 @@ package lesson3.clean_code.bad.code2;
  */
 public class Square implements Shape2D {
 
+    /**
+     * колличество сторон квадрата
+     */
     public static final int SIDES_OF_SQUARE = 4;
 
-    private Double xSideOfSq;
-    private Double ySideOfSq;
+    /**
+     * значения x центра фигуры относительно начала коорлинат
+     */
+    private Double centerX;
+    /**
+     * значения y центра фигуры относительно начала коорлинат
+     */
+    private Double centerY;
+
+    /**
+     * длинна стороны квадрата
+     */
     private Double edgeSize;
 
-    public Square(Double xSideOfSq, Double ySideOfSq, Double edgeSize) {
-        this.xSideOfSq = xSideOfSq;
-        this.ySideOfSq = ySideOfSq;
+    public Square(Double centerX, Double centerY, Double edgeSize) {
+        this.centerX = centerX;
+        this.centerY = centerY;
         this.edgeSize = edgeSize;
     }
 
+    /**
+     * @return значение центра фигуры относительно начала координато по оси Х
+     */
     @Override
-    public Double getXSide() {
-        return xSideOfSq;
+    public Double getCenterX() {
+        return centerX;
     }
 
+    /**
+     * @return значение центра фигуры относительно начала координато по оси У
+     */
     @Override
-    public Double getYSide() {
-        return ySideOfSq;
+    public Double getCenterY() {
+        return centerY;
     }
 
     /**
