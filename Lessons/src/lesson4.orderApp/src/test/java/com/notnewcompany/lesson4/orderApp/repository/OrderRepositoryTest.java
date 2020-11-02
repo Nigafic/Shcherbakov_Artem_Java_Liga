@@ -29,8 +29,8 @@ class OrderRepositoryTest {
         orderRepository = new OrderRepository(jdbcTemplate);
 
         Order order = new Order("Order", 59);
-        when(orderRepository.createOrder(order)).thenReturn(1);
 
+        when(orderRepository.createOrder(order)).thenReturn(1);
         assertEquals(orderRepository.createOrder(order), 1);
 
     }

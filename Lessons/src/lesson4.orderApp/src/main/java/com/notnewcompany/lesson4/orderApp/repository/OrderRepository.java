@@ -1,17 +1,18 @@
 package com.notnewcompany.lesson4.orderApp.repository;
 
 import com.notnewcompany.lesson4.orderApp.model.Order;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderRepository {
 
-    public OrderRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Autowired
     JdbcTemplate jdbcTemplate;
