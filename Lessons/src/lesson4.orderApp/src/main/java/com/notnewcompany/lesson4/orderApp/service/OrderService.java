@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     OrderRepository orderRepository;
 
-    public String createOrder(Order order) {
+    public int createOrder(Order order) {
         return orderRepository.createOrder(order);
     }
 }
