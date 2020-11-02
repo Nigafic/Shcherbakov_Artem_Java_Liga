@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     OrderRepository orderRepository;
 
+    /**
+     * Создание заказа
+     * @param order
+     * @return
+     */
     public int createOrder(Order order) {
         return orderRepository.createOrder(order);
     }

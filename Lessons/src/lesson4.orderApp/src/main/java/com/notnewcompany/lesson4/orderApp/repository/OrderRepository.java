@@ -19,7 +19,7 @@ public class OrderRepository {
     /**
      * Создание заказа
      * @param order
-     * @return
+     * @return колличество изменненных строк в БД
      */
 public int createOrder (Order order) {
 
