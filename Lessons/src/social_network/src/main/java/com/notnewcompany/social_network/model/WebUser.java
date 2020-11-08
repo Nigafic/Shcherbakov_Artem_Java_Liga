@@ -1,25 +1,19 @@
 package com.notnewcompany.social_network.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
 
-@Setter
-@Getter
+@Data
 @Entity
 @Table (name = "web_user")
-@NoArgsConstructor
-@AllArgsConstructor
 public class WebUser {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-//    @Column(name = "id", updatable = false, nullable = false, unique=true)
+    @Column(name = "id", updatable = false, nullable = false, unique=true)
     private Long id;
 
     private String firstName;
