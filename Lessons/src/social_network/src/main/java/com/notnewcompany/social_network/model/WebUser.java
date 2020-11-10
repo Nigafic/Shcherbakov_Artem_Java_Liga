@@ -32,6 +32,8 @@ public class WebUser {
 
     private String gender;
 
+    private String email;
+
 //    @ManyToMany
 //    @JoinTable (name = "user_message", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 //            inverseJoinColumns = @JoinColumn(name = "message_id", referencedColumnName = "id"))

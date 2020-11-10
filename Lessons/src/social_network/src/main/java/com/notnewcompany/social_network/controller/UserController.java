@@ -2,6 +2,7 @@ package com.notnewcompany.social_network.controller;
 
 
 import com.notnewcompany.social_network.dto.UserDTO;
+import com.notnewcompany.social_network.dto.UserRegistrationDto;
 import com.notnewcompany.social_network.model.Message;
 import com.notnewcompany.social_network.model.WebUser;
 import com.notnewcompany.social_network.service.UserService;
@@ -20,15 +21,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping ("/users/{id}/messages")
-    public Message newMessage (@PathVariable (value = "id") Long senderId, @RequestBody WebUser recipientUser) {
-
-        return userService.createMessage(userService.findUserById(senderId),recipientUser,"Something text");
+    @PostMapping ("/registration")
+    public WebUser registrationUser (@RequestBody UserRegistrationDto newUser){
+        return userService.registrationUser(newUser);
     }
 
     @PostMapping ("/users")
     public WebUser newUser (@RequestBody WebUser newUser){
         return userService.createUser(newUser);
+    }
+
+    @PostMapping ("/users/{id}/messages")
+    public Message newMessage (@PathVariable (value = "id") Long senderId, @RequestBody WebUser recipientUser) {
+        return userService.createMessage(userService.findUserById(senderId),recipientUser,"Something text");
     }
 
     @PutMapping("/users/{id}")
