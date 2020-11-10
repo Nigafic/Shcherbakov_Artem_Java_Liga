@@ -1,6 +1,7 @@
 package com.notnewcompany.social_network.controller;
 
 
+import com.notnewcompany.social_network.dto.UserDTO;
 import com.notnewcompany.social_network.model.WebUser;
 import com.notnewcompany.social_network.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +13,25 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
+    public final UserService userService;
+
     @Autowired
-    public UserService userService;
-
-    @PostMapping (path = "/users")
-    public WebUser newUser (@RequestBody WebUser newUser){
-
-        return userService.createUser(newUser);
-
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping (path = "/users")
-    public List<WebUser> allUsers ( ){
+    @PostMapping
+    public WebUser newUser (@RequestBody WebUser newUser){
+        return userService.createUser(newUser);
+    }
 
+    @PutMapping("/users/{id}")
+    public WebUser updateUser (@PathVariable (value = "id") Long id, @RequestBody UserDTO userDTO){
+            return userService.updateUser(id, userDTO);
+    }
+
+    @GetMapping
+    public List<WebUser> allUsers ( ){
         return userService.findAll();
     }
 
