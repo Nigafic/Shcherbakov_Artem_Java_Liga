@@ -2,13 +2,13 @@ package com.notnewcompany.social_network.controller;
 
 
 import com.notnewcompany.social_network.dto.UserDTO;
+import com.notnewcompany.social_network.model.Message;
 import com.notnewcompany.social_network.model.WebUser;
 import com.notnewcompany.social_network.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -20,7 +20,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping ("/users/{id}/messages")
+    public Message newMessage (@PathVariable (value = "id") Long senderId, @RequestBody WebUser recipientUser) {
+
+        return userService.createMessage(userService.findUserById(senderId),recipientUser,"Something text");
+    }
+
+    @PostMapping ("/users")
     public WebUser newUser (@RequestBody WebUser newUser){
         return userService.createUser(newUser);
     }
@@ -30,18 +36,18 @@ public class UserController {
             return userService.updateUser(id, userDTO);
     }
 
-    @GetMapping
+    @GetMapping ("/users")
     public List<WebUser> allUsers ( ){
         return userService.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public Optional<WebUser> userOne (@PathVariable Long id) {
-        return userService.userOne(id);
+    public WebUser findByUserId(@PathVariable Long id) {
+        return userService.findUserById(id);
     }
 
     @DeleteMapping("/users/{id}")
-    void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
     }
 

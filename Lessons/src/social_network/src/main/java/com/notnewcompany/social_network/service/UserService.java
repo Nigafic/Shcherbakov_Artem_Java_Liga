@@ -1,21 +1,34 @@
 package com.notnewcompany.social_network.service;
 
 import com.notnewcompany.social_network.dto.UserDTO;
+import com.notnewcompany.social_network.model.Message;
 import com.notnewcompany.social_network.model.WebUser;
+import com.notnewcompany.social_network.repository.MessageRepository;
 import com.notnewcompany.social_network.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MessageRepository messageRepository) {
         this.userRepository = userRepository;
+        this.messageRepository = messageRepository;
+    }
+
+
+    public Message createMessage ( WebUser senderUser, WebUser recipientUser, String text) {
+        Message message = new Message();
+        message.setMessageText(text);
+        message.setSenderId(senderUser.getId());
+        message.setRecipientId(recipientUser.getId());
+
+        return messageRepository.save(message);
     }
 
 
@@ -27,23 +40,21 @@ public class UserService {
         return (List<WebUser>) userRepository.findAll();
     }
 
-    public Optional<WebUser> userOne(Long id) {
-        return userRepository.findById(id);
+    public WebUser findUserById(Long id) {
+        return  userRepository.findById(id).get();
     }
 
     public WebUser updateUser(Long id, UserDTO userDTO) {
         if (userRepository.findById(id).isPresent()) {
             WebUser user = userRepository.findById(id).get();
 
-            user.setAge(userDTO.getAge());
-            user.setCountry(userDTO.getCountry());
-            user.setFirstName(userDTO.getFirstName());
-            user.setLastName(userDTO.getLastName());
-            user.setGender(userDTO.getGender());
+            return WebUser.builder().firstName(userDTO.getFirstName())
+                    .lastName(userDTO.getLastName())
+                    .country(userDTO.getCountry())
+                    .age(userDTO.getAge())
+                    .gender(userDTO.getGender())
+                    .build();
 
-            WebUser updatedUser = userRepository.save(user);
-
-            return new WebUser(user.getId(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getCountry(), userDTO.getAge(), userDTO.getGender());
 
         } else
             return null;

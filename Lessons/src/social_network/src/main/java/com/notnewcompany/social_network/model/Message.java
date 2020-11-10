@@ -12,15 +12,18 @@ public class Message  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique=true)
-
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    private String message;
+    private String messageText;
 
     private Long senderId;
 
     private Long recipientId;
+
+//    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "message")
+//
+//    private Set<WebUser> webUsers;
 
 }
 
