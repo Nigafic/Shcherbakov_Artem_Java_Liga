@@ -1,13 +1,18 @@
 package com.notnewcompany.social_network.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Table (name = "message")
+@Builder
 @Entity
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Message  {
 
     @Id
@@ -17,13 +22,9 @@ public class Message  {
 
     private String messageText;
 
-    private Long senderId;
 
-    private Long recipientId;
 
-//    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "message")
-//
-//    private Set<WebUser> webUsers;
+
 
 }
 

@@ -1,8 +1,7 @@
 package com.notnewcompany.social_network.service;
 
-import com.notnewcompany.social_network.dto.UserDTO;
+import com.notnewcompany.social_network.dto.UserFastRegistrationDto;
 import com.notnewcompany.social_network.dto.UserRegistrationDto;
-import com.notnewcompany.social_network.model.Message;
 import com.notnewcompany.social_network.model.WebUser;
 import com.notnewcompany.social_network.repository.MessageRepository;
 import com.notnewcompany.social_network.repository.UserRepository;
@@ -23,25 +22,25 @@ public class UserService {
     }
 
 
-    public Message createMessage ( WebUser senderUser, WebUser recipientUser, String text) {
-        Message message = new Message();
-        message.setMessageText(text);
-        message.setSenderId(senderUser.getId());
-        message.setRecipientId(recipientUser.getId());
+    public WebUser createUser(UserRegistrationDto user) {
 
-        return messageRepository.save(message);
+        return userRepository.save(
+                WebUser.builder().
+                        firstName(user.getFirstName()).
+                        lastName(user.getLastName()).
+                        country(user.getCountry()).
+                        age(user.getAge()).
+                        gender(user.getGender()).
+                        email(user.getEmail()).
+                        email(user.getEmail()).
+                        build()
+        );
     }
 
-
-    public WebUser createUser(WebUser user) {
-        return userRepository.save(user);
-    }
-
-    public WebUser registrationUser (UserRegistrationDto userRegistrationDto) {
-
+    public WebUser registrationUser(UserFastRegistrationDto userFastRegistrationDto) {
         WebUser user = WebUser.builder().
-                firstName(userRegistrationDto.getFirstName()).
-                email(userRegistrationDto.getEmail()).build();
+                firstName(userFastRegistrationDto.getFirstName()).
+                email(userFastRegistrationDto.getEmail()).build();
 
         return userRepository.save(user);
 
@@ -52,29 +51,21 @@ public class UserService {
     }
 
     public WebUser findUserById(Long id) {
-        return  userRepository.findById(id).get();
+        return userRepository.findById(id).get();
     }
 
-    public WebUser updateUser(Long id, UserDTO userDTO) {
+    public WebUser updateUser(Long id, UserRegistrationDto userRegistrationDto) {
         if (userRepository.findById(id).isPresent()) {
             WebUser user = userRepository.findById(id).get();
 
-            user.setAge(userDTO.getAge());
-            user.setCountry(userDTO.getCountry());
-            user.setFirstName(userDTO.getFirstName());
-            user.setLastName(userDTO.getLastName());
-            user.setGender(userDTO.getGender());
+            user.setAge(userRegistrationDto.getAge());
+            user.setCountry(userRegistrationDto.getCountry());
+            user.setFirstName(userRegistrationDto.getFirstName());
+            user.setLastName(userRegistrationDto.getLastName());
+            user.setGender(userRegistrationDto.getGender());
+            user.setEmail(userRegistrationDto.getEmail());
 
-            WebUser updatedUser = userRepository.save(user);
-
-            return WebUser.builder()
-                    .firstName(updatedUser.getFirstName())
-                    .lastName(updatedUser.getLastName())
-                    .country(updatedUser.getCountry())
-                    .age(updatedUser.getAge())
-                    .gender(updatedUser.getGender())
-                    .build();
-
+            return userRepository.save(user);
 
         } else
             return null;

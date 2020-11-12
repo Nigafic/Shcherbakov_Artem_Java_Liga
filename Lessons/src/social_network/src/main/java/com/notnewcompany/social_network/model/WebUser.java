@@ -11,14 +11,14 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table (name = "web_user")
+@Table(name = "web_user")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class WebUser {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
@@ -34,11 +34,18 @@ public class WebUser {
 
     private String email;
 
-//    @ManyToMany
-//    @JoinTable (name = "user_message", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "message_id", referencedColumnName = "id"))
-//    private Set<Message> message;
+    private String password;
 
+    private String interests;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "senderId")
+    private Message sender;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipientId")
+    private Message recipient;
 }
 
 

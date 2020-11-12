@@ -7,7 +7,16 @@ public class UserRegistrationDto {
 
     private String firstName;
 
+    private String lastName;
+
+    private String country;
+
+    private int age;
+
+    private String gender;
+
     private String email;
+
 
 
 }
