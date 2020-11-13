@@ -12,8 +12,9 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final MessageRepository messageRepository;
+
+    private UserRepository userRepository;
+    private MessageRepository messageRepository;
 
     @Autowired
     public UserService(UserRepository userRepository, MessageRepository messageRepository) {
@@ -41,7 +42,8 @@ public class UserService {
     public WebUser registrationUser(UserFastRegistrationDto userFastRegistrationDto) {
         WebUser user = WebUser.builder().
                 firstName(userFastRegistrationDto.getFirstName()).
-                email(userFastRegistrationDto.getEmail()).build();
+                email(userFastRegistrationDto.getEmail())
+                .build();
 
         return userRepository.save(user);
 

@@ -7,38 +7,61 @@ import com.notnewcompany.social_network.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MessageService {
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private UserRepository userRepository;
 
- private MessageRepository messageRepository;
- private UserRepository userRepository;
+    /**
+     * Создаает сообщение и заносит его в БД
+     *
+     * @param senderId    Id отправителя сообщения
+     * @param recipientId Id принимающего сообшение
+     * @param text        текст сообщения
+     * @return
+     */
+    public Message postMessage(Long senderId, Long recipientId, String text) {
 
- @Autowired
-    public MessageService(MessageRepository messageRepository, UserRepository userRepository) {
-        this.messageRepository = messageRepository;
-     this.userRepository = userRepository;
- }
+        WebUser sender = userRepository.findById(senderId).get();
+        WebUser recipient = userRepository.findById(recipientId).get();
+        Message message = new Message();
 
- public Message findUserById(Long senderId){
-     return messageRepository.findById(senderId).get();
- }
+        message.setSender(sender);
+        message.setRecipient(recipient);
 
- public Message postMessage (Long senderId, Long recipientId, String text) {
+        message.setMessageText(text);
 
-     WebUser sender = userRepository.findById(senderId).get();
-     WebUser recipient = userRepository.findById(recipientId).get();
-     Message message = new Message();
+        return messageRepository.save(message);
+    }
 
-     message.setSender(sender);
-     message.setRecipient(recipient);
+    /**
+     * Находит сообщения пользователя по ID пользователя
+     *
+     * @param senderId ID пользователя
+     * @return List сообщений
+     */
+    //todo Возврат листа сообщений (возможно, необходимо сделать связь ManyToMany)
+    public List<Message> findMessagesByUserId(Long senderId) {
 
-     message.setMessageText(text);
+        List<Message> messageList = new ArrayList<>();
 
-     return messageRepository.save(message);
- }
+        for (Message message : messageRepository.findAll()) {
+            if (message.getSender().getId().equals(senderId)) {
+                messageList.add(message);
+            }
+        }
 
+        return messageList;
+    }
+
+    /**
+     * @return возвращает список всех сообщений
+     */
     public List<Message> findAll() {
         return (List<Message>) messageRepository.findAll();
     }

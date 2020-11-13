@@ -1,33 +1,33 @@
 package com.notnewcompany.social_network.controller;
 
+import com.notnewcompany.social_network.dto.MessageSendDto;
 import com.notnewcompany.social_network.model.Message;
 import com.notnewcompany.social_network.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class MessageController {
 
-    private MessageService messageService;
-
     @Autowired
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
-    }
+    public MessageService messageService;
 
     @PostMapping("/users/{senderId}/messages/{recipientId}")
-    public Message postMessage(@PathVariable Long senderId, @PathVariable Long recipientId) {
-        return messageService.postMessage(senderId, recipientId, "Something text" );
+    public Message postMessage(@PathVariable Long senderId, @PathVariable Long recipientId, @RequestBody MessageSendDto messageSendDto) {
+        return messageService.postMessage(senderId, recipientId, messageSendDto.getText() );
     }
 
+    @GetMapping ("users/{senderId}/messages")
+    public Iterable<Message> findMessagesByUserId (@PathVariable Long senderId) {
+        return messageService.findMessagesByUserId(senderId);
+    }
+
+
     @GetMapping("/users/messages")
-    public List<Message> getMessage(){
-        return messageService.findAll() ;
+    public List<Message> allMessages(){
+        return messageService.findAll();
     }
 
 }

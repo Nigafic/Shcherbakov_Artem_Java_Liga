@@ -13,12 +13,8 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    public final UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    public UserService userService;
 
     @PostMapping ("/registration")
     public WebUser  registrationUser (@RequestBody UserFastRegistrationDto newUser){
