@@ -38,14 +38,6 @@ public class WebUser {
 
     private String interests;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "senderId")
-    private Message sender;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipientId")
-    private Message recipient;
 }
 
 

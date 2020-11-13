@@ -24,7 +24,7 @@ public class UserService {
 
     public WebUser createUser(UserRegistrationDto user) {
 
-        return userRepository.save(
+        WebUser webUser = userRepository.save(
                 WebUser.builder().
                         firstName(user.getFirstName()).
                         lastName(user.getLastName()).
@@ -35,6 +35,7 @@ public class UserService {
                         email(user.getEmail()).
                         build()
         );
+        return webUser;
     }
 
     public WebUser registrationUser(UserFastRegistrationDto userFastRegistrationDto) {

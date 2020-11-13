@@ -1,18 +1,15 @@
 package com.notnewcompany.social_network.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
 @Table (name = "message")
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Message  {
 
     @Id
@@ -22,9 +19,21 @@ public class Message  {
 
     private String messageText;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "senderId")
+    private WebUser sender;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipientId")
+    private WebUser recipient;
 
 
-
-
+//    @Override
+//    public String toString() {
+//        return "Message{" +
+//                "id=" + id +
+//                ", messageText='" + messageText + '\'' +
+//                '}';
+//    }
 }
 

@@ -7,6 +7,8 @@ import com.notnewcompany.social_network.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageService {
 
@@ -16,6 +18,7 @@ public class MessageService {
  @Autowired
     public MessageService(MessageRepository messageRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
+     this.userRepository = userRepository;
  }
 
  public Message findUserById(Long senderId){
@@ -23,18 +26,21 @@ public class MessageService {
  }
 
  public Message postMessage (Long senderId, Long recipientId, String text) {
-     Message message = Message.builder().build();
+
+     WebUser sender = userRepository.findById(senderId).get();
+     WebUser recipient = userRepository.findById(recipientId).get();
+     Message message = new Message();
+
+     message.setSender(sender);
+     message.setRecipient(recipient);
+
      message.setMessageText(text);
-     message.setId(senderId);
 
      return messageRepository.save(message);
  }
 
-    public Message createMessage(WebUser senderUser, WebUser recipientUser, String text) {
-        Message message = Message.builder().build();
-        message.setMessageText(text);
-
-        return messageRepository.save(message);
+    public List<Message> findAll() {
+        return (List<Message>) messageRepository.findAll();
     }
 
 }
