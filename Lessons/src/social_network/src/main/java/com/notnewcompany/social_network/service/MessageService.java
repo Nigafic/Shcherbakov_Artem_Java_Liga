@@ -33,7 +33,6 @@ public class MessageService {
 
         message.setSender(sender);
         message.setRecipient(recipient);
-
         message.setMessageText(text);
 
         return messageRepository.save(message);
@@ -45,7 +44,7 @@ public class MessageService {
      * @param senderId ID пользователя
      * @return List сообщений
      */
-    //todo Возврат листа сообщений (возможно, необходимо сделать связь ManyToMany)
+
     public List<Message> findMessagesByUserId(Long senderId) {
 
         List<Message> messageList = new ArrayList<>();
@@ -55,7 +54,6 @@ public class MessageService {
                 messageList.add(message);
             }
         }
-
         return messageList;
     }
 
@@ -66,4 +64,19 @@ public class MessageService {
         return (List<Message>) messageRepository.findAll();
     }
 
+    /**
+     * Выдает определенное сообщение
+     *
+     * @param senderId    Id пользователя, отправляющего сообщение
+     * @param recipientId Id пользователя, принимающего сообщение
+     * @return
+     */
+    public List<Message> findMessage(Long senderId, Long recipientId) {
+
+        List<Message> messageList = findMessagesByUserId(senderId);
+
+        messageList.removeIf(message -> !message.getRecipient().getId().equals(recipientId));
+
+        return messageList;
+    }
 }

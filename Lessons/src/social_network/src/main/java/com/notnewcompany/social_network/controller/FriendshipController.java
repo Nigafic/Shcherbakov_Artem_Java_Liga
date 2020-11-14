@@ -23,9 +23,26 @@ public class FriendshipController {
 
     }
 
+    /**
+     * Находит список друзей пользователя
+     *
+     * @param userId Id пользователя
+     * @return список друзей пользователя List<Friendship>
+     */
+    @GetMapping("/friends/{userId}")
+    public List<Friendship> findMyFriendship(@PathVariable Long userId){
+
+        return  friendshipService.findMyFriends(userId);
+    }
+
+    /**
+     * Находит все дружеские связи
+     *
+     * @return
+     */
     @GetMapping ("/friends")
-    public List<Friendship> findAll () {
-        return friendshipService.findAll();
+    public List<Friendship> findAllFriendship () {
+        return friendshipService.findAllFriendship();
     }
 
 }

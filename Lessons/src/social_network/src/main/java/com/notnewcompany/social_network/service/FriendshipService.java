@@ -7,6 +7,7 @@ import com.notnewcompany.social_network.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,7 +30,18 @@ public class FriendshipService {
         return friendshipRepository.save(friendship);
     }
 
-    public List<Friendship> findAll () {
+    public List <Friendship> findMyFriends (Long userId){
+        List<Friendship> friendshipList = new ArrayList<>();
+
+        for (Friendship friendship : friendshipRepository.findAll()) {
+            if (friendship.getSender().getId().equals(userId)) {
+                friendshipList.add(friendship);
+            }
+        }
+        return friendshipList;
+    }
+
+    public List<Friendship> findAllFriendship() {
         return (List<Friendship>) friendshipRepository.findAll();
     }
 

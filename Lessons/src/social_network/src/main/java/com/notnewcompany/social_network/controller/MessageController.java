@@ -20,8 +20,14 @@ public class MessageController {
     }
 
     @GetMapping ("users/{senderId}/messages")
-    public Iterable<Message> findMessagesByUserId (@PathVariable Long senderId) {
+    public List<Message> findMessagesByUserId (@PathVariable Long senderId) {
         return messageService.findMessagesByUserId(senderId);
+    }
+
+
+    @GetMapping ("/users/{senderId}/messages/{recipientId}")
+    public List<Message> findMessage(@PathVariable Long senderId, @PathVariable Long recipientId) {
+        return messageService.findMessage(senderId, recipientId);
     }
 
 
