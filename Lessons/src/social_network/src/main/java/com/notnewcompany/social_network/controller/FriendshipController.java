@@ -17,6 +17,13 @@ public class FriendshipController {
     private FriendshipService friendshipService;
 
 
+    /**
+     * Создает связь "Дружба"
+     *
+     * @param senderId Id отправителя дружбы
+     * @param recipientId Id принимающего дружбу
+     * @return дружба
+     */
     @PostMapping ("friends/{senderId}/{recipientId}")
     public Friendship makeFriends(@PathVariable Long senderId, @PathVariable Long recipientId){
         return friendshipService.makeFriends (senderId, recipientId);
@@ -32,13 +39,13 @@ public class FriendshipController {
     @GetMapping("/friends/{userId}")
     public List<Friendship> findMyFriendship(@PathVariable Long userId){
 
-        return  friendshipService.findMyFriends(userId);
+        return  friendshipService.findMyFriendship(userId);
     }
 
     /**
      * Находит все дружеские связи
      *
-     * @return
+     * @return лист дружб List<Friendship>
      */
     @GetMapping ("/friends")
     public List<Friendship> findAllFriendship () {

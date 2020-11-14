@@ -18,6 +18,14 @@ public class FriendshipService {
     @Autowired
     private FriendshipRepository friendshipRepository;
 
+
+    /**
+     * Создает связь "Дружба"
+     *
+     * @param senderId Id отправителя дружбы
+     * @param recipientId Id принимающего дружбу
+     * @return дружба
+     */
     public Friendship makeFriends(Long senderId, Long recipientId ){
 
         WebUser sender = userRepository.findById(senderId).get();
@@ -30,7 +38,13 @@ public class FriendshipService {
         return friendshipRepository.save(friendship);
     }
 
-    public List <Friendship> findMyFriends (Long userId){
+    /**
+     * Находит список друзей пользователя
+     *
+     * @param userId Id пользователя
+     * @return список друзей пользователя List<Friendship>
+     */
+    public List <Friendship> findMyFriendship(Long userId){
         List<Friendship> friendshipList = new ArrayList<>();
 
         for (Friendship friendship : friendshipRepository.findAll()) {
@@ -41,6 +55,12 @@ public class FriendshipService {
         return friendshipList;
     }
 
+
+    /**
+     * Находит все дружеские связи
+     *
+     * @return лист дружб List<Friendship>
+     */
     public List<Friendship> findAllFriendship() {
         return (List<Friendship>) friendshipRepository.findAll();
     }
