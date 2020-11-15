@@ -23,19 +23,26 @@ public class MessageService {
      * @param senderId    Id отправителя сообщения
      * @param recipientId Id принимающего сообшение
      * @param text        текст сообщения
-     * @return
+     * @return Обьект Сообщения
      */
     public Message postMessage(Long senderId, Long recipientId, String text) {
 
-        WebUser sender = userRepository.findById(senderId).get();
-        WebUser recipient = userRepository.findById(recipientId).get();
-        Message message = new Message();
+        WebUser sender;
+        WebUser recipient;
+        if (userRepository.findById(senderId).isPresent() &&
+                userRepository.findById(recipientId).isPresent()) {
 
-        message.setSender(sender);
-        message.setRecipient(recipient);
-        message.setMessageText(text);
+            sender = userRepository.findById(senderId).get();
+            recipient = userRepository.findById(recipientId).get();
+            Message message = new Message();
 
-        return messageRepository.save(message);
+            message.setSender(sender);
+            message.setRecipient(recipient);
+            message.setMessageText(text);
+
+            return messageRepository.save(message);
+        }
+        return null;
     }
 
     /**
@@ -49,7 +56,7 @@ public class MessageService {
 
         List<Message> messageList = new ArrayList<>();
 
-        for (Message message : messageRepository.findAll()) {
+        for (Message message : findAll()) {
             if (message.getSender().getId().equals(senderId)) {
                 messageList.add(message);
             }
@@ -69,7 +76,7 @@ public class MessageService {
      *
      * @param senderId    Id пользователя, отправляющего сообщение
      * @param recipientId Id пользователя, принимающего сообщение
-     * @return
+     * @return Лист сообщений
      */
     public List<Message> findMessage(Long senderId, Long recipientId) {
 
@@ -79,4 +86,21 @@ public class MessageService {
 
         return messageList;
     }
+
+    /**
+     * Сообщения
+     *
+     * @param senderId    Id отправителя
+     * @param recipientId Id получателя
+     */
+    public void deleteMessage(Long senderId, Long recipientId) {
+
+        for (Message message : findAll()) {
+            if (message.getSender().getId().equals(senderId) && message.getRecipient().getId().equals(recipientId)) {
+                messageRepository.delete(message);
+            }
+        }
+    }
+
+
 }

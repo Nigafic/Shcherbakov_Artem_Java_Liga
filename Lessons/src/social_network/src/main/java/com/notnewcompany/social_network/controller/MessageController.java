@@ -36,4 +36,9 @@ public class MessageController {
         return messageService.findAll();
     }
 
+    @DeleteMapping ("/users/{senderId}/messages/{recipientId}")
+    public void deleteMessage(@PathVariable Long senderId, @PathVariable Long recipientId) {
+        messageService.deleteMessage(senderId, recipientId);
+    }
+
 }
